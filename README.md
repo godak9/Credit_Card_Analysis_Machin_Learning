@@ -1,18 +1,18 @@
 # Credit_Card_Analysis_Machine_Learning
 # Overview 
 ## Purpose
-Machine learning can be used to predict credit card risk and solve loan approval questions becasue credit risk is ultimatley an unbalanced classification problem. Previous data on loan approval can be used to train machine learning models to determine if someone if worthy of a loan, but good loans undeniably outnumber risky loans, and this class imbalance must be considered when choosing model for prediciting credit risk. The purpose of this project was to use the Python's Sciki-learn (**sklearn**) and Imbalanced-learn (**imblearn**) libraries to build and evaluate six differnt classification models that use differnt resampling and ensemble learning algorithms. The goal was to determine which of the six models are best at predicting credit risk based evidence from confusion matrices and classification reports. 
+Machine learning can be used to predict credit card risk and solve loan approval questions becasue credit risk is ultimatley an unbalanced classification problem. Previous data on loan approval can be used to train machine learning models to determine if someone if worthy of a loan, but good loans undeniably outnumber risky loans, and this class imbalance must be considered when choosing model for prediciting credit risk. The purpose of this project was to use the Python's Sciki-learn (**sklearn**) and Imbalanced-learn (**imblearn**) libraries to build and evaluate six different classification models that use differnt resampling and ensemble learning algorithms. The goal was to determine which of the six models are best at predicting credit risk based evidence from confusion matrices and classification reports. 
 ## Analysis Roadmap
 The [credit card dataset](LoanStats_2019Q1.csv.zip) used in this project to train machine learning models came from LendingClub, a peer-to-peer lending services company. This dataset was imported to a DataFrame, cleaned, and encoded using the **Pandas** library. 
 
 This project was broken down into following three main parts found in the Analysis Section:
-1. Using Oversampling and Undersampling Algorithms to Predict Credit Risk
+1. Using Oversampling and Undersampling Technqiues to Predict Credit Risk
    - Use the oversampling **RandomOverSampler** algorithm to resample the dataset and train a logisitc classifier.
    - Use the oversampling **SMOTE** algorithm to resample the dataset and train a logisitc classifier.
    - Use the undersampling **ClusterCentroids** algorithm to resample the dataset and train a logisitc classifier.
-2. Using a Combination Sampling Algorithm to Predict Credit Risk
+2. Using a Combination Sampling Technique to Predict Credit Risk
    - Use the combinatorial over- and under-sampling **SMOTEENN** algorithm to resample the dataset and train a logisitc classifier.
-3. Using Ensemble Classifiers to Resample Data Predict Credit Risk
+3. Using Ensemble Learning Techniques to Resample Data Predict Credit Risk
    - Use the ensemble **BalancedRandomForestClassifier** algorithm to resample the dataset and train an ensemble classifier.
    - Use the ensemble **EasyEnsembleClassifier** algorithm to resample the dataset and train an ensemble classifier. 
 
@@ -78,7 +78,7 @@ df = df.replace(x)
 
 df.reset_index(inplace=True, drop=True)
 
-###ENCODING FEATURES AND TARGET
+### ENCODING FEATURES AND TARGET
 # Encode feature columns with string values 
 df_binary_encoded = pd.get_dummies(df, columns = [
     "term",
@@ -116,7 +116,7 @@ y.value_counts()
             1      358
             Name: loan_status, dtype: int64
 ```
-The data was split into training and testing sets using the defualt parameters of the **train_test_split** module so that 75% of the data was used for training and only 25% of the data was used for testing. _For consistency and reproducibility sake, I chose a **random_state** of 1 and used this in every model throughout the analysis_.
+The data was split into training and testing sets using the **sklearn.model_selection** package. I used the defualt parameters of the **train_test_split** function so that 75% of the data was used for training and only 25% of the data was used for testing. _For consistency and reproducibility sake, I chose a **random_state** of 1 and used this in every model throughout the analysis_. To confirm that the dataset is in fact imbalanced, I created a **Counter** instance using the **collections** module to count the samples in each class. This instance reported a count of the classes in the "y_train" dataset of 52,996 samples for the 0 (low_risk) class and 274 samples for the 1 (high_risk) class. 
 ```
 # Normal train test split 
 X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
@@ -125,24 +125,102 @@ X_train, X_test, y_train, y_test = train_test_split(X, y, random_state=1)
 Counter(y_train)
    # Output: Counter({0: 52996, 1: 274})
 ```
-## Using Oversampling and Undersampling Algorithms to Predict Credit Risk
-The code referenced in this subsection can be in the [credit_risk_resampling.ipynb file](credit_risk_resampling.ipynb).
+## Using Oversampling and Undersampling Techniques to Predict Credit Risk
+The code referenced in this subsection can be found in the [credit_risk_resampling.ipynb file](credit_risk_resampling.ipynb). I imported the necessary dependencies for each section directly above the code for each section for clarity reasons. However, the resampled data in every section was fit to a logistic regression model which I imported the dependency to create these logistic regression models at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module. 
 
-### Oversampling algorithms 
+### Oversampling Techniques 
+Using oversampling techniques, the minority class was resampled to make it larger. Then, the resampled data was fit to logistic regression models.
 
-#### **RandomOverSampler** algorithm model
+#### **RandomOverSampler** algorithm 
+Using the naive random over-sampling technique algorithm, instances of the minority class were randomly selected, reused and added to the training set until the majority and minority classes were balanced. For this section I imported the **RandomOverSampler** class from the **imblearn.over_sampling** module. I first created an instance of the **RandomOverSampler** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **RandomOverSampler** algorithm added 52,722 samples to the minority class. 
+```
+# Resampling the training data with the RandomOversampler
+from imblearn.over_sampling import RandomOverSampler
 
-#### **SMOTE** algorithm model
+ros = RandomOverSampler(random_state=1)
+X_resampled, y_resampled = ros.fit_resample(X_train, y_train)
 
-### Undersampling algorithm
+# Confirming enlargement of the minority class
+Counter(y_resampled)
+   # Output: Counter({0: 52996, 1: 52996})
 
-#### **ClusterCentroids** algorithm model
+# Training the Logistic Regression model using the resampled data
+model = LogisticRegression(solver='lbfgs', random_state=1)
+model.fit(X_resampled, y_resampled)
 
-## Using a Combination Sampling Algorithm to Predict Credit Risk
+# Generating preciditions with trained model
+y_pred = model.predict(X_test)
 
-### **SMOTEENN** algorithm model
+```
+#### **SMOTE** algorithm
+Using the Synthetic Minority Over-Sampling Technqiue (SMOTE) algorithm, instances of the minority class were interpolated added to the training set until the majority and minority classes were balanced. Instances from the minority class were added by creating _synthetic instances_ based on the neighboring values of the exisiting instances. For this section I imported the **SMOTE** class from the **imblearn.over_sampling** module. I first created an instance of the **SMOTE** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTE** algorithm added 52,722 samples to the minority class.
+```
+# Resampling the training data with SMOTE
+from imblearn.over_sampling import SMOTE
 
-## Using Ensemble Classifier Algorithms to Resample Data Predict Credit Risk
+X_resampled, y_resampled = SMOTE(random_state=1, sampling_strategy='auto').fit_resample(
+    X_train, y_train
+)
+
+# Confirming enlargement of the minority class
+Counter(y_resampled)
+   # Output: Counter({0: 52996, 1: 52996})
+
+# Training the Logistic Regression model using the resampled data
+model = LogisticRegression(solver='lbfgs', random_state=1)
+model.fit(X_resampled, y_resampled)
+
+# Generating preciditions with trained model
+y_pred = model.predict(X_test)
+```
+### Undersampling Technique
+Using an under-sampling technique, the majority class was resampled to make it smaller. Then, the resampled data was fit to a logistic regression model.
+#### **ClusterCentroids** techinque
+Using the cluster centroid technique algorithm, clusters of the majority class instances were identified and _synthetic instances_ (centroids) were generated. These instances were representative of the clusters and used as the data points for the majority class. For this section I imported the **ClusterCentroids** class from the **imblearn.under_sampling** module. I first created an instance of the **ClusterCentroids** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **ClusterCentroids** algorithm reduced the majority class by 52,722 samples. 
+```
+# Resampling the data using the ClusterCentroids resampler
+from imblearn.under_sampling import ClusterCentroids
+
+cc = ClusterCentroids(random_state=1)
+X_resampled, y_resampled = cc.fit_resample(X_train, y_train)
+
+# Verifying reduction of the majority class
+Counter(y_resampled)
+   # Output: Counter({0: 274, 1: 274})
+
+# Training the Logistic Regression model using the resampled data
+model = LogisticRegression(solver='lbfgs', random_state=78)
+model.fit(X_resampled, y_resampled)
+
+# Generating preciditions with trained model
+y_pred = model.predict(X_test)
+```
+## Using a Combination Sampling Technique to Predict Credit Risk
+The code referenced in this subsection can be found in the [credit_risk_resampling.ipynb file](credit_risk_resampling.ipynb). I imported the necessary dependencies for this section directly above the code for this section for clarity reasons. However, the resampled data in this section was fit to a logistic regression model which I imported the dependency to create this logistic regression model at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module.
+
+There are downsideds to over-sampling with the **SMOTE** algorithm because it relies on the immediate neighbors of a data point and fails to recognize the overall distribution of the data. This leads to noisy data because the newly generated data points can be heavily influenced by outliers. There are also downsides to any under-sampling techniques because it involves the overall loss of data. One way to deal with these challenges is to use a sampling technique that is a combination of oversampling and undersampling.
+
+### **SMOTEENN** algorithm
+Using the Synthetic Minority Over-Sampling Technqiue and Edited Nearest Neighbors (SMOTEENN) algorithm, instances of the minoirty class were oversampled using the **SMOTE** algorithm, but then cleaned and under-sampled using the **ENN** algorithm. If the two nearest neighbors of a data point belonged to two different classes, that data point was dropped. For this section I imported the **SMOTEENN** class from the **imblearn.combine** module. I first created an instance of the **SMOTEENN** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTEENN** algorithm added 70,380 samples to the minority class, and it added 11,038 samples to the majority class. 
+```
+# Resampling the training data with SMOTEENN
+from imblearn.combine import SMOTEENN
+
+smote_enn = SMOTEENN(random_state=0)
+X_resampled, y_resampled = smote_enn.fit_resample(X, y)
+
+# Confirming balance
+Counter(y_resampled)
+   # Output: Counter({0: 64034, 1: 70654})
+
+# Training the Logistic Regression model using the resampled data
+model = LogisticRegression(solver='lbfgs', random_state=1)
+model.fit(X_resampled, y_resampled)
+
+# Generating preciditions with trained model
+y_pred = model.predict(X_test)
+```
+## Using Ensemble Learning Technqiues to Resample Data Predict Credit Risk
 
 ### **BalancedRandomForestClassifier** algorithm
 
