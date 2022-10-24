@@ -16,7 +16,7 @@ This project was broken down into following three main parts found in the Analys
    - Use the ensemble **BalancedRandomForestClassifier** algorithm to resample the dataset and train an ensemble classifier.
    - Use the ensemble **EasyEnsembleClassifier** algorithm to resample the dataset and train an ensemble classifier. 
 
-The evaluation of each of the six models can be found in the Results section with images of the confusion matrix and classification report generated for each model provided for support.
+The evaluation of each of the six models can be found in the Results section. Skip to this section to see that accuracy, precision, and recall scores for the six models. 
 
 Finally, the Summary section will provide a summary of the results of the machine learning models and discuss which model would best predict credit risk. 
 
@@ -132,7 +132,7 @@ The code referenced in this subsection can be found in the [credit_risk_resampli
 Using oversampling techniques, the minority class was resampled to make it larger. Then, the resampled data was fit to logistic regression models.
 
 #### Model 1: **RandomOverSampler** algorithm 
-Using the naive random over-sampling technique algorithm, instances of the minority class were randomly selected, reused and added to the training set until the majority and minority classes were balanced. For this section I imported the **RandomOverSampler** class from the **imblearn.over_sampling** module. I first created an instance of the **RandomOverSampler** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **RandomOverSampler** algorithm added 52,722 samples to the minority class. 
+Using the naive random over-sampling technique algorithm, instances of the minority class were randomly selected, reused and added to the training set until the majority and minority classes were balanced. For this section, I imported the **RandomOverSampler** class from the **imblearn.over_sampling** module. To use this class, I first created an instance of the **RandomOverSampler** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **RandomOverSampler** algorithm added 52,722 samples to the minority class. 
 ```
 # Resampling the training data with the RandomOversampler
 from imblearn.over_sampling import RandomOverSampler
@@ -157,7 +157,7 @@ Below is a screencap of metrics generated for this model which are further recap
 ![Random_OS_Metrics](https://user-images.githubusercontent.com/104794100/197619398-b82a1d9a-90ec-4e5d-894b-c9254b1d34af.png)
 
 #### Model 2: **SMOTE** algorithm
-Using the Synthetic Minority Over-Sampling Technqiue (SMOTE) algorithm, instances of the minority class were interpolated added to the training set until the majority and minority classes were balanced. Instances from the minority class were added by creating _synthetic instances_ based on the neighboring values of the exisiting instances. For this section I imported the **SMOTE** class from the **imblearn.over_sampling** module. I first created an instance of the **SMOTE** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTE** algorithm added 52,722 samples to the minority class.
+Using the Synthetic Minority Over-Sampling Technqiue (SMOTE) algorithm, instances of the minority class were interpolated added to the training set until the majority and minority classes were balanced. Instances from the minority class were added by creating _synthetic instances_ based on the neighboring values of the exisiting instances. For this section, I imported the **SMOTE** class from the **imblearn.over_sampling** module. To use this class, I first created an instance of the **SMOTE** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTE** algorithm added 52,722 samples to the minority class.
 ```
 # Resampling the training data with SMOTE
 from imblearn.over_sampling import SMOTE
@@ -184,8 +184,8 @@ Below is a screencap of metrics generated for this model which are further recap
 ### Undersampling Technique
 Using an under-sampling technique, the majority class was resampled to make it smaller. Then, the resampled data was fit to a logistic regression model.
 
-#### Model 3: **ClusterCentroids** techinque
-Using the cluster centroid technique algorithm, clusters of the majority class instances were identified and _synthetic instances_ (centroids) were generated. These instances were representative of the clusters and used as the data points for the majority class. For this section I imported the **ClusterCentroids** class from the **imblearn.under_sampling** module. I first created an instance of the **ClusterCentroids** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **ClusterCentroids** algorithm reduced the majority class by 52,722 samples. 
+#### Model 3: **ClusterCentroids** algorithm
+Using the cluster centroid technique algorithm, clusters of the majority class instances were identified and _synthetic instances_ (centroids) were generated. These instances were representative of the clusters and used as the data points for the majority class. For this section, I imported the **ClusterCentroids** class from the **imblearn.under_sampling** module. To used this class, I first created an instance of the **ClusterCentroids** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **ClusterCentroids** algorithm reduced the majority class by 52,722 samples. 
 ```
 # Resampling the data using the ClusterCentroids resampler
 from imblearn.under_sampling import ClusterCentroids
@@ -214,7 +214,7 @@ The code referenced in this subsection can be found in the [credit_risk_resampli
 There are downsideds to over-sampling with the **SMOTE** algorithm because it relies on the immediate neighbors of a data point and fails to recognize the overall distribution of the data. This leads to noisy data because the newly generated data points can be heavily influenced by outliers. There are also downsides to any under-sampling techniques because it involves the overall loss of data. One way to deal with these challenges is to use a sampling technique that is a combination of oversampling and undersampling.
 
 ### Model 4: **SMOTEENN** algorithm
-Using the Synthetic Minority Over-Sampling Technqiue and Edited Nearest Neighbors (SMOTEENN) algorithm, instances of the minoirty class were oversampled using the **SMOTE** algorithm, but then cleaned and under-sampled using the **ENN** algorithm. If the two nearest neighbors of a data point belonged to two different classes, that data point was dropped. For this section I imported the **SMOTEENN** class from the **imblearn.combine** module. I first created an instance of the **SMOTEENN** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTEENN** algorithm added 70,380 samples to the minority class, and it added 11,038 samples to the majority class. 
+Using the Synthetic Minority Over-Sampling Technqiue and Edited Nearest Neighbors (SMOTEENN) algorithm, instances of the minoirty class were oversampled using the **SMOTE** algorithm, but then cleaned and under-sampled using the **ENN** algorithm. If the two nearest neighbors of a data point belonged to two different classes, that data point was dropped. For this section, I imported the **SMOTEENN** class from the **imblearn.combine** module. To use this class, I first created an instance of the **SMOTEENN** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTEENN** algorithm added 70,380 samples to the minority class, and it added 11,038 samples to the majority class. 
 ```
 # Resampling the training data with SMOTEENN
 from imblearn.combine import SMOTEENN
@@ -238,22 +238,117 @@ Below is a screencap of metrics generated for this model which are further recap
 ![SMOTEENN_CS_Metrics](https://user-images.githubusercontent.com/104794100/197619686-73bb5b93-e4ac-4e0e-872c-14f2ec506f23.png)
 
 ## Using Ensemble Learning Technqiues to Resample Data Predict Credit Risk
-The code referenced in this subsection can be found in the [credit_risk_ensemble.ipynb file](credit_risk_ensemble.ipynb). I imported the necessary dependencies for each section directly above the code for each section for clarity reasons. However, the resampled data in every section was fit to a logistic regression model which I imported the dependency to create these logistic regression models at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module.
+The code referenced in this subsection can be found in the [credit_risk_ensemble.ipynb file](credit_risk_ensemble.ipynb). I imported the necessary dependencies for each section directly above the code for each section for clarity reasons.
 
-Ensemble learning is the process of combining multiple weaker models into one stronger model to help reduce bias.
+Ensemble learning is the process of using multiple weaker models and creating one stronger model to help reduce bias.
 
 ### Model 5: **BalancedRandomForestClassifier** algorithm
+A random forest classifer algorithm uses a bootstrap aggregation technique as part of its algorithm. This technique is used to overcome overfitting by decision tree models. Bootstrapping is a sampling technique in which samples are randomly selected, then returned to the general pool and replaced, or put back into the general pool. Aggregation is a modeling technique in which  different classifiers are run, using the samples drawn in the bootstrapping stage. Each classifier is run independently of the others, and _all the results are aggregated via a voting process._ For this section, I imported the **BalancedRandomForestClassifier** class from the **imblearn.ensemble** module. The **BalancedRandomForestClassifier** algorithm randomly under-samples each boostrap sample to balance it. _NOTE: Sci-kit learn version 1.0.2 must be installed to run this class._ To use this class, I first created an instance of the **BalancedRandomForestClassifie** algorithm using 100 "n_estimators" and resampled the data using this algorithm then I fit the data to the model. Then, the computer generated predictions using the resampled data and the model.
+```
+# Resampling the training data with the BalancedRandomForestClassifier
+#Sci-kit learn version 1.0.2 must be installed for this class
+from imblearn.ensemble import BalancedRandomForestClassifier
+
+brf_model = BalancedRandomForestClassifier(n_estimators=100, random_state=1)
+
+# Fitting the model
+brf_model = brf_model.fit(X_train, y_train)
+
+# Making predictions using the testing data
+predictions = brf_model.predict(X_test)
+```
+I also printed the feature importance sorted in descending order (from most to least important feature), along with the feature score. Below is a screencap of the top five important features.
+
+![Screen Shot 2022-10-21 at 11 58 18 PM](https://user-images.githubusercontent.com/104794100/197629098-fde9eb18-904c-4d14-8e3f-e5c1f9de187e.png)
+
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![Screen Shot 2022-10-21 at 11 57 36 PM](https://user-images.githubusercontent.com/104794100/197629166-9be0824c-ed73-462d-a42e-3ede8a66726d.png)
 
 ### Model 6: **EasyEnsembleClassifier** algorithm
+A balanced boosted algorithm uses a bootstrap boosting technique as part of its algorithm. As opposed to the bootstrap aggregation technique where results are aggregated, the bootstrap boosting technique uses weak learns _sequentially, and one model learns from the mistakes of the previous model_. For this section, I imported the **EasyEnsemblerClass** class from the **imblearn.ensemble** module. The **EasyEnsemblerClass** algorithm uses randomly under-samples each boostrap sample to balance it, but then uses _adaptive boosting_ where, after evaluating the error of the first model, another model is trained, but this time, the model gives extra weight to the errors from the previous model. _NOTE: Sci-kit learn version 1.0 must be installed to run this class because it conflicts with version 1.0.2._ To use this class, I first created an instance of the **EasyEnsembleClassifier** algorithm using 100 "n_estimators" and resampled the data using this algorithm then I fit the data to the model. Then, the computer generated predictions using the resampled data and the model.
 
-Results of the analysis: Explain the purpose of this analysis.
-# Results: Using bulleted lists
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![Screen Shot 2022-10-22 at 12 07 24 AM](https://user-images.githubusercontent.com/104794100/197632278-ab1d36f6-a46f-4b83-a9e6-54243ed65182.png)
+
+# Results
+A confusion matrix was created for all six models using the y testing and y prediciton outcomes to show the numbers behind following metrics. These matrices were created using the **confusion_matrix** class from the **sklearn.metrics** module imported at the top of two code files. The confusion matrix for each model can be found in the screencap provided for each model in its corresponding section above.  
 - Accuracy scores
+Accuracy scores for each model were calculated with the **balanced_accuracy_score** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The accuracy score for each model can be found in the screencap provided for each model in its corresponding section above.
+
 Models 1-6 produced the following accuracy scores:
+ - Model 1 **RandomOverSampler** algorithm: 0.663038250438522
+ - Model 2 **SMOTE** algorithm: 0.6761322760304258
+ - Model 3 **ClusterCentroids** algorithm: 0.4903434213610754
+ - Model 4 **SMOTEENN** algorithm: 0.680895393295665
+ - Model 5 **BalancedRandomForestClassifier** algorithm: 0.6485266063648342
+ - Model 6 **EasyEnsembleClassifier** algorithm: 0.9364294605976833
+  
 - Precision scores
+Precision scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The precision score for each model can be found in the screencap provided for each model in its corresponding section above.
+
 Models 1-6 produced the following precision scores:
+ - Model 1 **RandomOverSampler** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.01
+   - Average/Total: 0.99
+ - Model 2 **SMOTE** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.01
+   - Average/Total: 0.99
+ - Model 3 **ClusterCentroids** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.00
+   - Average/Total: 0.99
+ - Model 4 **SMOTEENN** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.01
+   - Average/Total: 0.99
+ - Model 5 **BalancedRandomForestClassifier** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.71
+   - Average/Total: 1.00
+ - Model 6 **EasyEnsembleClassifier** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.06
+   - Average/Total: 1.00
+
 - Recall scores
-Models 1-6 produced the following accuracy scores:
+Recall scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The recall score for each model can be found in the screencap provided for each model in its corresponding section above.
+
+Models 1-6 produced the following recall scores:
+ - Model 1 **RandomOverSampler** algorithm:
+   - 0/Low risk: 0.58
+   - 1/High risk: 0.75
+   - Average/Total: 0.58
+ - Model 2 **SMOTE** algorithm:
+   - 0/Low risk: 0.64
+   - 1/High risk: 0.71
+   - Average/Total: 0.64
+ - Model 3 **ClusterCentroids** algorithm:
+   - 0/Low risk: 0.44
+   - 1/High risk: 0.54
+   - Average/Total: 0.45
+ - Model 4 **SMOTEENN** algorithm:
+   - 0/Low risk: 0.58
+   - 1/High risk: 0.79
+   - Average/Total: 0.58
+ - Model 5 **BalancedRandomForestClassifier** algorithm:
+   - 0/Low risk: 1.00
+   - 1/High risk: 0.30
+   - Average/Total: 1.00
+ - Model 6 **EasyEnsembleClassifier** algorithm:
+   - 0/Low risk: 0.93
+   - 1/High risk: 0.94
+   - Average/Total: 0.93
 
 # Summary
-Summarize the results of the machine learning models, and include a recommendation on the model to use, if any. If you do not recommend any of the models, justify your reasoning.
+The **ClusterCentroids** algorithm provided the worst accuracy score with 0.4903434213610754 where less than half of the predicitions were accurate. The  **EasyEnsembleClassifier** algorithm provided the best accuracy score with 0.9364294605976833 where 93.6% of the predicitions were accurate. 
+
+All of the models provided an average precision score of either 1.0 or 0.99. At a first glance, this may seem great, but you should look at the individual precision socres for each class. All of the models provided a great score of 1.0 for the 0/Low risk class. However, the **RandomOverSampler**, **SMOTE**, and **SMOTEENN** algorithms provided horrible precision scores of 0.01 for the 1/High risk class, and the **ClusterCentroids** algorithm even worse with a score of 0.00. The **EasyEnsembleClassifier** algorithm did little better with a score of 0.06 for the 1/High risk class. Overall, the **BalancedRandomForestClassifier** alogorithm provided the best precision score of 0.71 for the 1/High risk class.
+
+The **ClusterCentroids** algorithm provided the worst recall score with an average score of 0.45, a score of 0.44 for the 0/Low risk class, and a score of 0.54 for the 1/High risk class. The **EasyEnsembleClassifier** algorithm provided the best recall score with an average score of 0.93, a score of 0.93 for the 0/Low risk class, and a score fo 0.94 for the 1/High risk class.
+
+Out of the six models, I believe the **EasyEnsembleClassifier** algorithm would be best to use for predicting credit risk. The model created with this algorithm had highest accuracy score and recall score even though it had a low precision score when it came to predicting high risk credit. The low precision score for this class simply means that there were a large number of false positives for this class where those predicted high risk were actually low risk. However, I believe a credit card company would look to recall score when choosing a machine learning model becasue of the cost associated with false negatives. The **EasyEnsembleClassifier** algorithm model provided the high recall scores for both classes meaning a low number of false negatives for both classes. 
+
