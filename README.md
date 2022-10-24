@@ -1,7 +1,7 @@
 # Credit_Card_Analysis_Machine_Learning
 # Overview 
 ## Purpose
-Machine learning can be used to predict credit card risk and solve loan approval questions becasue credit risk is ultimatley an unbalanced classification problem. Previous data on loan approval can be used to train machine learning models to determine if someone if worthy of a loan, but good loans undeniably outnumber risky loans, and this class imbalance must be considered when choosing model for prediciting credit risk. The purpose of this project was to use the Python's Sciki-learn (**sklearn**) and Imbalanced-learn (**imblearn**) libraries to build and evaluate six different classification models that use differnt resampling and ensemble learning algorithms. The goal was to determine which of the six models are best at predicting credit risk based evidence from confusion matrices and classification reports. 
+Machine learning can be used to predict credit card risk and solve loan approval questions becasue credit risk is ultimatley an unbalanced classification problem. Previous data on loan approval can be used to train machine learning models to determine if someone if worthy of a loan, but good loans undeniably outnumber risky loans, and this class imbalance must be considered when a choosing model for prediciting credit risk. The purpose of this project was to use the Python's Sciki-learn (**sklearn**) and Imbalanced-learn (**imblearn**) libraries to build and evaluate six different classification models that use differnt resampling and ensemble learning algorithms. The goal was to determine which of the six models are best at predicting credit risk based evidence from confusion matrices and classification reports. 
 ## Analysis Roadmap
 The [credit card dataset](LoanStats_2019Q1.csv.zip) used in this project to train machine learning models came from LendingClub, a peer-to-peer lending services company. This dataset was imported to a DataFrame, cleaned, and encoded using the **Pandas** library. 
 
@@ -241,8 +241,6 @@ Below is a screencap of metrics generated for this model which are further recap
 The code referenced in this subsection can be found in the [credit_risk_ensemble.ipynb file](credit_risk_ensemble.ipynb). I imported the necessary dependencies for each section directly above the code for each section for clarity reasons. However, the resampled data in every section was fit to a logistic regression model which I imported the dependency to create these logistic regression models at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module.
 
 Ensemble learning is the process of combining multiple weaker models into one stronger model to help reduce bias.
-
-The "X" data for these models was scaled using the **StandardScaler** class to help with comparision. This class was imported from **sklearn.preprocessing** module at the top of the code. 
 
 ### Model 5: **BalancedRandomForestClassifier** algorithm
 
