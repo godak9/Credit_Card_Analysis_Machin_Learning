@@ -274,8 +274,8 @@ Below is a screencap of metrics generated for this model which are further recap
 
 # Results
 A confusion matrix was created for all six models using the y testing and y prediciton outcomes to show the numbers behind following metrics. These matrices were created using the **confusion_matrix** class from the **sklearn.metrics** module imported at the top of two code files. The confusion matrix for each model can be found in the screencap provided for each model in its corresponding section above.  
-- Accuracy scores
 
+## Accuracy scores
 Accuracy scores for each model were calculated with the **balanced_accuracy_score** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The accuracy score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following accuracy scores:
@@ -286,8 +286,7 @@ Models 1-6 produced the following accuracy scores:
  - Model 5 **BalancedRandomForestClassifier** algorithm: 0.6485266063648342
  - Model 6 **EasyEnsembleClassifier** algorithm: 0.9364294605976833
   
-- Precision scores
-
+## Precision scores
 Precision scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The precision score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following precision scores:
@@ -316,8 +315,7 @@ Models 1-6 produced the following precision scores:
    - 1/High risk: 0.06
    - Average/Total: 1.00
 
-- Recall scores
-
+## Recall scores
 Recall scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The recall score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following recall scores:
@@ -353,5 +351,6 @@ All of the models provided an average precision score of either 1.0 or 0.99. At 
 
 The **ClusterCentroids** algorithm provided the worst recall score with an average score of 0.45, a score of 0.44 for the 0/Low risk class, and a score of 0.54 for the 1/High risk class. The **EasyEnsembleClassifier** algorithm provided the best recall score with an average score of 0.93, a score of 0.93 for the 0/Low risk class, and a score fo 0.94 for the 1/High risk class.
 
+## Conclusion 
 Out of the six models, I believe the **EasyEnsembleClassifier** algorithm would be best to use for predicting credit risk. The model created with this algorithm had highest accuracy score and recall score even though it had a low precision score when it came to predicting high risk credit. The low precision score for this class simply means that there were a large number of false positives for this class where those predicted high risk were actually low risk. However, I believe a credit card company would look to recall score when choosing a machine learning model becasue of the cost associated with false negatives. The **EasyEnsembleClassifier** algorithm model provided the high recall scores for both classes meaning a low number of false negatives for both classes. 
 
