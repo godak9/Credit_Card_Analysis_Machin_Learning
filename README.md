@@ -131,7 +131,7 @@ The code referenced in this subsection can be found in the [credit_risk_resampli
 ### Oversampling Techniques 
 Using oversampling techniques, the minority class was resampled to make it larger. Then, the resampled data was fit to logistic regression models.
 
-#### **RandomOverSampler** algorithm 
+#### Model 1: **RandomOverSampler** algorithm 
 Using the naive random over-sampling technique algorithm, instances of the minority class were randomly selected, reused and added to the training set until the majority and minority classes were balanced. For this section I imported the **RandomOverSampler** class from the **imblearn.over_sampling** module. I first created an instance of the **RandomOverSampler** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **RandomOverSampler** algorithm added 52,722 samples to the minority class. 
 ```
 # Resampling the training data with the RandomOversampler
@@ -152,7 +152,11 @@ model.fit(X_resampled, y_resampled)
 y_pred = model.predict(X_test)
 
 ```
-#### **SMOTE** algorithm
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![Random_OS_Metrics](https://user-images.githubusercontent.com/104794100/197619398-b82a1d9a-90ec-4e5d-894b-c9254b1d34af.png)
+
+#### Model 2: **SMOTE** algorithm
 Using the Synthetic Minority Over-Sampling Technqiue (SMOTE) algorithm, instances of the minority class were interpolated added to the training set until the majority and minority classes were balanced. Instances from the minority class were added by creating _synthetic instances_ based on the neighboring values of the exisiting instances. For this section I imported the **SMOTE** class from the **imblearn.over_sampling** module. I first created an instance of the **SMOTE** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTE** algorithm added 52,722 samples to the minority class.
 ```
 # Resampling the training data with SMOTE
@@ -173,9 +177,14 @@ model.fit(X_resampled, y_resampled)
 # Generating preciditions with trained model
 y_pred = model.predict(X_test)
 ```
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![SMOTE_OS_Metrics](https://user-images.githubusercontent.com/104794100/197619469-aa80142c-cc58-45cc-bb7a-6bfd914ae70d.png)
+
 ### Undersampling Technique
 Using an under-sampling technique, the majority class was resampled to make it smaller. Then, the resampled data was fit to a logistic regression model.
-#### **ClusterCentroids** techinque
+
+#### Model 3: **ClusterCentroids** techinque
 Using the cluster centroid technique algorithm, clusters of the majority class instances were identified and _synthetic instances_ (centroids) were generated. These instances were representative of the clusters and used as the data points for the majority class. For this section I imported the **ClusterCentroids** class from the **imblearn.under_sampling** module. I first created an instance of the **ClusterCentroids** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. The computer generated predictions using the resampled data. The **ClusterCentroids** algorithm reduced the majority class by 52,722 samples. 
 ```
 # Resampling the data using the ClusterCentroids resampler
@@ -195,12 +204,16 @@ model.fit(X_resampled, y_resampled)
 # Generating preciditions with trained model
 y_pred = model.predict(X_test)
 ```
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![ClusterCentroid_US_Metrics](https://user-images.githubusercontent.com/104794100/197619535-7455cd5b-9929-4f93-8827-3e91a582bd6f.png)
+
 ## Using a Combination Sampling Technique to Predict Credit Risk
 The code referenced in this subsection can be found in the [credit_risk_resampling.ipynb file](credit_risk_resampling.ipynb). I imported the necessary dependencies for this section directly above the code for this section for clarity reasons. However, the resampled data in this section was fit to a logistic regression model which I imported the dependency to create this logistic regression model at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module.
 
 There are downsideds to over-sampling with the **SMOTE** algorithm because it relies on the immediate neighbors of a data point and fails to recognize the overall distribution of the data. This leads to noisy data because the newly generated data points can be heavily influenced by outliers. There are also downsides to any under-sampling techniques because it involves the overall loss of data. One way to deal with these challenges is to use a sampling technique that is a combination of oversampling and undersampling.
 
-### **SMOTEENN** algorithm
+### Model 4: **SMOTEENN** algorithm
 Using the Synthetic Minority Over-Sampling Technqiue and Edited Nearest Neighbors (SMOTEENN) algorithm, instances of the minoirty class were oversampled using the **SMOTE** algorithm, but then cleaned and under-sampled using the **ENN** algorithm. If the two nearest neighbors of a data point belonged to two different classes, that data point was dropped. For this section I imported the **SMOTEENN** class from the **imblearn.combine** module. I first created an instance of the **SMOTEENN** algorithm, then resampled the data using this algorithm, and, finally, fit the resampled data to a **LogisticRegression** model using the **lbfgs** solver. Then, the computer generated predictions using the resampled data. The **SMOTEENN** algorithm added 70,380 samples to the minority class, and it added 11,038 samples to the majority class. 
 ```
 # Resampling the training data with SMOTEENN
@@ -220,11 +233,20 @@ model.fit(X_resampled, y_resampled)
 # Generating preciditions with trained model
 y_pred = model.predict(X_test)
 ```
+Below is a screencap of metrics generated for this model which are further recapped in the Results seciton. The process of gathering these metrics is also explained in the Results section.
+
+![SMOTEENN_CS_Metrics](https://user-images.githubusercontent.com/104794100/197619686-73bb5b93-e4ac-4e0e-872c-14f2ec506f23.png)
+
 ## Using Ensemble Learning Technqiues to Resample Data Predict Credit Risk
+The code referenced in this subsection can be found in the [credit_risk_ensemble.ipynb file](credit_risk_ensemble.ipynb). I imported the necessary dependencies for each section directly above the code for each section for clarity reasons. However, the resampled data in every section was fit to a logistic regression model which I imported the dependency to create these logistic regression models at the top of the code using the **LogisticRegression** class from the **sklearn.linear_model** module.
 
-### **BalancedRandomForestClassifier** algorithm
+Ensemble learning is the process of combining multiple weaker models into one stronger model to help reduce bias.
 
-### **EasyEnsembleClassifier** algorithm
+The "X" data for these models was scaled using the **StandardScaler** class to help with comparision. This class was imported from **sklearn.preprocessing** module at the top of the code. 
+
+### Model 5: **BalancedRandomForestClassifier** algorithm
+
+### Model 6: **EasyEnsembleClassifier** algorithm
 
 Results of the analysis: Explain the purpose of this analysis.
 # Results: Using bulleted lists
