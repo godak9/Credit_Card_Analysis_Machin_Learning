@@ -275,6 +275,7 @@ Below is a screencap of metrics generated for this model which are further recap
 # Results
 A confusion matrix was created for all six models using the y testing and y prediciton outcomes to show the numbers behind following metrics. These matrices were created using the **confusion_matrix** class from the **sklearn.metrics** module imported at the top of two code files. The confusion matrix for each model can be found in the screencap provided for each model in its corresponding section above.  
 - Accuracy scores
+
 Accuracy scores for each model were calculated with the **balanced_accuracy_score** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The accuracy score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following accuracy scores:
@@ -286,6 +287,7 @@ Models 1-6 produced the following accuracy scores:
  - Model 6 **EasyEnsembleClassifier** algorithm: 0.9364294605976833
   
 - Precision scores
+
 Precision scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The precision score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following precision scores:
@@ -315,6 +317,7 @@ Models 1-6 produced the following precision scores:
    - Average/Total: 1.00
 
 - Recall scores
+
 Recall scores for each model were calculated with the **classification_report_imbalanced** class from the **sklearn.metrics** module imported at the top of two code files using the y testing and y prediciton outcomes. The recall score for each model can be found in the screencap provided for each model in its corresponding section above.
 
 Models 1-6 produced the following recall scores:
