@@ -1,6 +1,7 @@
 # Credit Risk Analysis with scikit-learn
+# Python Libraries Used 
 Sample code can be found in the __Analysis__ section
-- Data Preprocessing: Python, numpy and pandas libraries, encoding with get_dummies() method
+- Data Preprocessing: Python, numpy and pandas libraries, encoding with get_dummies()
 - Comparing Machine Learning Technqiues: Python sklearn and imblearn libraries, resampling and ensemble learning algorithms
 ```
 ## Imports
